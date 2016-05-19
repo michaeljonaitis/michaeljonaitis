@@ -92,7 +92,7 @@ USE_MODELTRANSLATION = False
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['michaeljonaitis.com']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -135,6 +135,9 @@ AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
 # a mode you'd pass directly to os.chmod.
 FILE_UPLOAD_PERMISSIONS = 0o644
 
+SECRET_KEY = "91cec4ae-c861-475b-9fe7-af09d2143d43"
+NEVERCACHE_KEY = "o8wnamn33m9hfwcu)gol9k0e@skt_ibf=jw4zd)te129z7itsu"
+
 
 #############
 # DATABASES #
@@ -143,13 +146,13 @@ FILE_UPLOAD_PERMISSIONS = 0o644
 DATABASES = {
     "default": {
         # Add "postgresql_psycopg2", "mysql", "sqlite3" or "oracle".
-        "ENGINE": "django.db.backends.",
+        "ENGINE": "django.db.backends.postgresql",
         # DB name or path to database file if using sqlite3.
-        "NAME": "",
+        "NAME": "michaeljonaitis",
         # Not used with sqlite3.
-        "USER": "",
+        "USER": "deployer",
         # Not used with sqlite3.
-        "PASSWORD": "",
+        "PASSWORD": "G7cruwum.",
         # Set to empty string for localhost. Not used with sqlite3.
         "HOST": "",
         # Set to empty string for default. Not used with sqlite3.
