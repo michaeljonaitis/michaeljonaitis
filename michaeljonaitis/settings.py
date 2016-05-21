@@ -286,7 +286,7 @@ MIDDLEWARE_CLASSES = (
 
 # Mezzanine blog slug for setting homepage to blogonly
 BLOG_SLUG = "jonaiti"
-
+BLOG_USE_FEATURED_IMAGE = True
 # Store these package names here as they may change in the future since
 # at the moment we are using custom forks of them.
 PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
