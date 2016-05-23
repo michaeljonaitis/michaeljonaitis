@@ -48,15 +48,21 @@
     <p>
     {% if tag %}
         {% trans "Viewing posts tagged" %} {{ tag }}
-    {% else %}{% if category %}
+    {% else %}
+    {% if category %}
         {% trans "Viewing posts for the category" %} {{ category }}
-    {% else %}{% if year or month %}
-        {% trans "Viewing posts from" %} {% if month %}{{ month }}, {% endif %}
+    {% else %}
+    {% if year or month %}
+        {% trans "Viewing posts from" %} {% if month %}{{ month }},
+    {% endif %}
         {{ year }}
-    {% else %}{% if author %}
+    {% else %}
+    {% if author %}
         {% trans "Viewing posts by" %}
         {{ author.get_full_name|default:author.username }}
-    {% endif %}{% endif %}{% endif %}{% endif %}
+    {% endif %}
+    {% endif %}
+    {% endif %}{% endif %}
     {% endblock %}
     </p>
 {#{% else %}#}
@@ -75,7 +81,7 @@
 {% block blog_post_list_post_title %}
 {% editable blog_post.title %}
 <h2>
-    <a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a>
+    <a href="{{ blog_post.get_absolute_url }}"><h3>{{ blog_post.title }}</h3></a>
 </h2>
 {% endeditable %}
 {% endblock %}
