@@ -111,7 +111,17 @@
 </div>
 
 <div class="col-md-3 right">
+    {% nevercache %}
+    {% include "includes/language_selector.html" %}
+    {% include "includes/user_panel.html" %}
+    {% endnevercache %}
+    <div class="panel panel-default">
 
+    <div class="panel-body">
+    {% block right_panel %}
+    {% endblock %}
+
+    <h3>{% trans "@mjonaitis" %}</h3>
     <!-- LightWidget Instgram Widget START -->
     <script src="//lightwidget.com/widgets/lightwidget.js"></script>
     <iframe src="//lightwidget.com/widgets/4370b9055bb95894bf629542baa57843.html" id="lightwidget_4370b9055b" name="lightwidget_4370b9055b"  scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width: 100%; border: 0; overflow: hidden;"></iframe>
@@ -130,18 +140,6 @@
     <a href="https://www.instagram.com/mjonaitis/?ref=badge" class="ig-b- ig-b-v-24"><img src="//badges.instagram.com/static/images/ig-badge-view-24.png" alt="@mjonaitis" /></a>
     <!-- Instagram Badge END -->
 
-    {% nevercache %}
-    {% include "includes/language_selector.html" %}
-    {% include "includes/user_panel.html" %}
-    {% endnevercache %}
-    <div class="panel panel-default">
-
-    <div class="panel-body">
-    {% block right_panel %}
-    {% ifinstalled mezzanine.twitter %}
-    {% include "twitter/tweets.html" %}
-    {% endifinstalled %}
-    {% endblock %}
     </div>
     </div>
 </div>
