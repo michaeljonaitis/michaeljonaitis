@@ -16,13 +16,14 @@
 {% endmetablock %}{% endblock %}
 
 {% block title %}
-{% if page %}
-{% editable page.title %}{{ page.title }}{% endeditable %}
-{% else %}
-{% trans "Blog" %}
-{% endif %}
+    {% if page %}
+        {% editable page.title %}{{ page.title }}{% endeditable %}
+    {% elif category %}
+        <h3>{{ category }}</h3>
+    {% else %}
+        {% trans "Blog" %}
+    {% endif %}
 {% endblock %}
-
 {% block breadcrumb_menu %}
 {{ block.super }}
 {% if tag or category or year or month or author %}
@@ -49,9 +50,6 @@
     {% if tag %}
         {% trans "Viewing posts tagged" %} {{ tag }}
     {% else %}
-    {% if category %}
-        {% trans "Viewing posts for the category" %} {{ category }}
-    {% else %}
     {% if year or month %}
         {% trans "Viewing posts from" %} {% if month %}{{ month }},
     {% endif %}
@@ -60,7 +58,6 @@
     {% if author %}
         {% trans "Viewing posts by" %}
         {{ author.get_full_name|default:author.username }}
-    {% endif %}
     {% endif %}
     {% endif %}{% endif %}
     {% endblock %}
@@ -80,27 +77,43 @@
 {% for blog_post in blog_posts.object_list %}
 {% block blog_post_list_post_title %}
 {% editable blog_post.title %}
-<h2>
-    <a href="{{ blog_post.get_absolute_url }}"><h3>{{ blog_post.title }}</h3></a>
-</h2>
+    <a href="{{ blog_post.get_absolute_url }}">
+        <h4>
+            {{ blog_post.title }}
+        </h4>
+    </a>
 {% endeditable %}
 {% endblock %}
 {% block blog_post_list_post_metainfo %}
 {% editable blog_post.publish_date %}
 <h6 class="post-meta">
-    {% trans "Posted by" %}:
-    {% with blog_post.user as author %}
-    <a href="{% url "blog_post_list_author" author %}">{{ author.get_full_name|default:author.username }}</a>
-    {% endwith %}
-    {% with blog_post.categories.all as categories %}
+{% with blog_post.categories.all as categories %}
     {% if categories %}
-    {% trans "in" %}
-    {% for category in categories %}
-    <a href="{% url "blog_post_list_category" category.slug %}">{{ category }}</a>{% if not forloop.last %}, {% endif %}
-    {% endfor %}
+            {% for category in categories %}
+                {% if category.slug == 'adventures' %}
+                    <a href={% url "blog_post_list_category" category.slug %}>
+                        <i class="fa fa-road" data-toggle="tooltip" data-placement="top" title="Adventures" aria-hidden="true"></i>
+                    </a>
+                {% endif %}
+                {% if category.slug == 'travel' %}
+                    <a href={% url "blog_post_list_category" category.slug %}>
+                        <i class="fa fa-plane" href="{% url "blog_post_list_category" category.slug %}" data-toggle="tooltip" data-placement="top" title="Travel" aria-hidden="true"></i>
+                    </a>
+                {% endif %}
+                {% if category.slug == 'hiking' %}
+                    <a href={% url "blog_post_list_category" category.slug %}>
+                        <i class="fa fa-blind" href="{% url "blog_post_list_category" category.slug %}" data-toggle="tooltip" data-placement="top" title="Hiking" aria-hidden="true"></i>
+                    </a>
+                {% endif %}
+                {% if category.slug == 'food' %}
+                    <a href={% url "blog_post_list_category" category.slug %}>
+                        <i class="fa fa-cutlery" href="{% url "blog_post_list_category" category.slug %}" data-toggle="tooltip" data-placement="top" title="Food" aria-hidden="true"></i>
+                    </a>
+                {% endif %}
+            {% endfor %}
     {% endif %}
-    {% endwith %}
-    {% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}
+{% endwith %}
+    {% blocktrans with sometime=blog_post.publish_date|timesince %}posted {{ sometime }} ago{% endblocktrans %}
 </h6>
 {% endeditable %}
 {% endblock %}
